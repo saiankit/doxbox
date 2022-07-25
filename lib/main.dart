@@ -1,12 +1,31 @@
+import 'dart:async';
+
+import 'package:doxbox/bottom_nav_bar.dart';
+import 'package:doxbox/config/multi_provider.dart';
 import 'package:doxbox/config/size_config.dart';
+import 'package:doxbox/models/detail.dart';
+import 'package:doxbox/models/document.dart';
 import 'package:doxbox/utilities/colors.dart';
+import 'package:doxbox/utilities/styles.dart';
+import 'package:doxbox/views/upload/upload_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'package:doxbox/views/home/home_screen.dart';
+import 'package:hive/hive.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:path_provider/path_provider.dart' as path_provider;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  unawaited(
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]));
+  final appDocument = await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(appDocument.path);
+  Hive.registerAdapter(DocumentAdapter());
+  Hive.registerAdapter(DetailAdapter());
+  runApp(const MultiProviderWrapper(child: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -17,48 +36,46 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgetOptions = <Widget>[
-      HomeScreen(),
-      HomeScreen(),
-      HomeScreen(),
-    ];
-    void onTabTapped(index) {
-      setState(() {
-        selectedIndex = index;
-      });
+    @override
+    void dispose() {
+      Hive.close();
+      Hive.box('documents').compact();
+      super.dispose();
     }
 
     return SizeConfigWrapper(
-      child: Scaffold(
-        backgroundColor: Nord.bg,
-        body: widgetOptions.elementAt(selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Nord.bbg,
-          selectedItemColor: Nord.orange,
-          unselectedItemColor: Neutrals.n5,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          onTap: onTabTapped,
-          currentIndex: selectedIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.plusCircle),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(FeatherIcons.settings),
-              label: 'Home',
-            ),
-          ],
+      child: FutureBuilder(
+        future: Hive.openBox(
+          'documents',
+          compactionStrategy: (int total, int deleted) {
+            return deleted > 10;
+          },
         ),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError)
+              return Center(
+                child: Text('Something Went Wrong'),
+              );
+            else
+              return BottomNavBarScreen();
+          }
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(
+                child: Text(
+                  'Loading...',
+                  style: TextStyles.t32.apply(color: Colors.white),
+                ),
+              ),
+              backgroundColor: Nord.bg,
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:doxbox/config/size_config.dart';
+import 'package:doxbox/utilities/colors.dart';
 import 'package:flutter/material.dart';
 
 class Converts {
@@ -51,29 +52,36 @@ class TextStyles {
   static TextStyle t8 = TextStyle(
     fontSize: Converts.c8,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
   static TextStyle t12 = TextStyle(
     fontSize: Converts.c12,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
   static TextStyle t16 = TextStyle(
     fontSize: Converts.c16,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
   static TextStyle t20 = TextStyle(
     fontSize: Converts.c20,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
   static TextStyle t24 = TextStyle(
     fontSize: Converts.c24,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
   static TextStyle t32 = TextStyle(
     fontSize: Converts.c32,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
   static TextStyle t40 = TextStyle(
     fontSize: Converts.c40,
     fontWeight: FontWeight.w700,
+    color: Neutrals.n5,
   );
 }

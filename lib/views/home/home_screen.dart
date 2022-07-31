@@ -1,59 +1,97 @@
 import 'package:doxbox/components/documentCard.dart';
-import 'package:doxbox/providers/database.dart';
+import 'package:doxbox/services/database.dart';
+import 'package:doxbox/utilities/assets.dart';
+import 'package:doxbox/utilities/colors.dart';
 import 'package:doxbox/utilities/styles.dart';
 import 'package:doxbox/views/details/details_screen.dart';
+import 'package:doxbox/views/home/empty_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../models/fakedoc.dart';
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final documentsBox = Hive.box('documents');
+  TextEditingController search = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    search.addListener(() {
+      // This ensures the widget is rebuild for new search text coz it is bound to controller
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final documentsBox = Hive.box('documents');
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Converts.c24),
+      padding: EdgeInsets.all(Converts.c24),
       child: SafeArea(
         child: (AppDatabase.getDocuments().isEmpty)
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+            ? const EmptyScreen()
+            : Column(
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/empty.svg',
-                    height: Converts.c200,
-                    width: Converts.c296,
-                  ),
-                  Text(
-                    'No Documents Added',
-                    style: TextStyles.t24,
-                  ),
-                ],
-              )
-            : ListView.builder(
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        curve: Curves.easeInOutSine,
-                        type: PageTransitionType.fade,
-                        child: DetailsScreen(
-                          document: documentsBox.getAt(index),
-                          index: index,
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: Converts.c24),
+                    child: TextField(
+                      style: TextStyles.t16.apply(color: Colors.white),
+                      controller: search,
+                      decoration: InputDecoration(
+                        suffixIcon: AppAssets.search,
+                        label: Text(
+                          'Search for Documents',
+                          style: TextStyles.t16,
+                        ),
+                        filled: true,
+                        fillColor: Nord.nord2,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Converts.c8),
+                          borderSide: BorderSide.none,
                         ),
                       ),
-                    );
-                  },
-                  child:
-                      DocumentCard(document: AppDatabase.getDocuments()[index]),
-                ),
-                itemCount: AppDatabase.getDocuments().length,
-                shrinkWrap: false,
+                    ),
+                  ),
+                  Expanded(
+                    child: ValueListenableBuilder(
+                      valueListenable: Hive.box('documents').listenable(),
+                      builder: ((context, value, child) => ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount:
+                                AppDatabase.getDocuments(search.text).length,
+                            shrinkWrap: false,
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      curve: Curves.easeInOutSine,
+                                      type: PageTransitionType.fade,
+                                      child: DetailsScreen(
+                                        document: AppDatabase.getDocuments(
+                                            search.text)[index],
+                                        index: index,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: DocumentCard(
+                                  document: AppDatabase.getDocuments(
+                                      search.text)[index],
+                                  index: index,
+                                ),
+                              );
+                            },
+                          )),
+                    ),
+                  ),
+                ],
               ),
       ),
     );

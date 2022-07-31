@@ -17,22 +17,28 @@ class DocumentAdapter extends TypeAdapter<Document> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Document(
-      title: fields[0] as String,
-      primaryDetail: fields[1] as Detail,
-      details: (fields[2] as List).cast<Detail>(),
+      id: fields[0] as String,
+      title: fields[1] as String,
+      primaryDetail: fields[2] as Detail,
+      details: (fields[3] as List).cast<Detail>(),
+      isFavorite: fields[4] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Document obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.title)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.primaryDetail)
+      ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.details);
+      ..write(obj.primaryDetail)
+      ..writeByte(3)
+      ..write(obj.details)
+      ..writeByte(4)
+      ..write(obj.isFavorite);
   }
 
   @override

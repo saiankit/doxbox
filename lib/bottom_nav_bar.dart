@@ -1,6 +1,6 @@
 import 'package:doxbox/providers/navBarProvider.dart';
 import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/views/settings/settings_screen.dart';
+import 'package:doxbox/views/migrate/settings_screen.dart';
 import 'package:doxbox/views/upload/upload_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -18,15 +18,19 @@ class BottomNavBarScreen extends StatefulWidget {
 
 class _BottomNavBarscreenstate extends State<BottomNavBarScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    UploadScreen(),
-    SettingsScreen(),
+    const HomeScreen(),
+    const UploadScreen(),
+    const SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+      ),
       home: Consumer<BottomNavBarProvider>(
         builder: (context, navBarViewModel, _) {
           return Scaffold(

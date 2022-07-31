@@ -19,6 +19,7 @@ class CustomTextField extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: Converts.c8),
           child: TextField(
             controller: nameDetailController,
+            textInputAction: TextInputAction.next,
             style: TextStyles.t16.apply(color: Colors.white),
             decoration: InputDecoration(
               label: Text(
@@ -38,6 +39,7 @@ class CustomTextField extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: Converts.c8),
           child: TextField(
             controller: contentDetailController,
+            textInputAction: TextInputAction.done,
             style: TextStyles.t16.apply(color: Colors.white),
             decoration: InputDecoration(
               label: Text(

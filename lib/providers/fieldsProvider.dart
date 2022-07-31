@@ -1,13 +1,16 @@
+import 'package:doxbox/utilities/colors.dart';
+import 'package:doxbox/utilities/styles.dart';
+import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+
 import 'package:doxbox/components/textField.dart';
 import 'package:doxbox/models/detail.dart';
 import 'package:doxbox/models/document.dart';
-import 'package:doxbox/providers/database.dart';
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:doxbox/services/database.dart';
 
 class FieldsProvider extends ChangeNotifier {
   List<List<TextEditingController>> controllers = [];
-  List<CustomTextField> detailFields = [];
+  List<dynamic> detailFields = [];
 
   final primaryNameDetailController = TextEditingController();
   final primaryContentDetailController = TextEditingController();
@@ -28,13 +31,15 @@ class FieldsProvider extends ChangeNotifier {
 
   void addDocument() {
     final newDocument = Document(
+      id: const Uuid().v1(),
       title: documentDetailController.text,
       primaryDetail: Detail(
           name: primaryNameDetailController.text,
           content: primaryContentDetailController.text),
       details: [],
+      isFavorite: false,
     );
-    for (int i = 0; i < detailFields.length; ++i) {
+    for (int i = 0; i < detailFields.length - 3; ++i) {
       newDocument.details.add(Detail(
           name: controllers[i][0].text, content: controllers[i][1].text));
     }

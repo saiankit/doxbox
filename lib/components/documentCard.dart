@@ -1,15 +1,17 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:doxbox/models/document.dart';
-import 'package:doxbox/models/fakedoc.dart';
+import 'package:doxbox/services/database.dart';
+import 'package:doxbox/utilities/assets.dart';
 import 'package:doxbox/utilities/colors.dart';
 import 'package:doxbox/utilities/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class DocumentCard extends StatelessWidget {
   final Document document;
-  const DocumentCard({Key? key, required this.document}) : super(key: key);
+  final int index;
+  const DocumentCard({Key? key, required this.document, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,12 @@ class DocumentCard extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      FeatherIcons.heart,
-                      size: Converts.c16,
-                      color: Colors.white,
-                    ),
+                    onPressed: () {
+                      AppDatabase.toggleFavourite(index, document);
+                    },
+                    icon: document.isFavorite
+                        ? AppAssets.heartFilled
+                        : AppAssets.heart,
                   )
                 ],
               ),
@@ -68,11 +70,7 @@ class DocumentCard extends StatelessWidget {
                             fontSize: 16.0),
                       );
                     },
-                    icon: Icon(
-                      FeatherIcons.copy,
-                      size: Converts.c24,
-                      color: Colors.white,
-                    ),
+                    icon: AppAssets.copy,
                   )
                 ],
               ),

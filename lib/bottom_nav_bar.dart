@@ -1,5 +1,9 @@
 import 'package:doxbox/providers/navBarProvider.dart';
+<<<<<<< HEAD
 import 'package:doxbox/utilities/theme.dart';
+=======
+import 'package:doxbox/utilities/colors.dart';
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
 import 'package:doxbox/views/migrate/settings_screen.dart';
 import 'package:doxbox/views/upload/upload_screen.dart';
 

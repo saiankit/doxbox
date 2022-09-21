@@ -3,7 +3,12 @@ import 'package:doxbox/models/detail.dart';
 import 'package:doxbox/models/document.dart';
 import 'package:doxbox/services/database.dart';
 import 'package:doxbox/utilities/assets.dart';
+<<<<<<< HEAD
 import 'package:doxbox/utilities/theme.dart';
+=======
+import 'package:doxbox/utilities/colors.dart';
+import 'package:doxbox/utilities/styles.dart';
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -76,6 +81,7 @@ class DetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: Converts.c12),
+<<<<<<< HEAD
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,6 +108,36 @@ class DetailWidget extends StatelessWidget {
             ],
           ),
         ],
+=======
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(detail.name, style: TextStyles.t12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(detail.content, style: TextStyles.t20),
+                IconButton(
+                  onPressed: () {
+                    FlutterClipboard.copy(detail.content).then(
+                      (value) => Fluttertoast.showToast(
+                          msg: "Copied to Clipboard",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Nord.nord1,
+                          textColor: Colors.white,
+                          fontSize: 16.0),
+                    );
+                  },
+                  icon: AppAssets.copy,
+                ),
+              ],
+            ),
+          ],
+        ),
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
       ),
     );
   }

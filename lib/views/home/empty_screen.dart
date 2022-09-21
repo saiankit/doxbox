@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import 'package:doxbox/utilities/theme.dart';
+=======
+import 'package:doxbox/utilities/styles.dart';
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

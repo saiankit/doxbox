@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:doxbox/models/detail.dart';
 import 'package:doxbox/models/document.dart';
 import 'package:doxbox/services/csv.dart';
+<<<<<<< HEAD
 import 'package:doxbox/services/database.dart';
+=======
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -69,10 +72,14 @@ class Migrate {
 
   static void generateCSV() async {
     var fileName = DateTime.now().day.toString() +
+<<<<<<< HEAD
         DateTime.now().month.toString() +
         DateTime.now().year.toString() +
         DateTime.now().hour.toString() +
         DateTime.now().minute.toString() +
+=======
+        DateTime.now().hour.toString() +
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
         DateTime.now().second.toString();
 
     var res = await exportFile(CSV.generate(), "$fileName.csv");
@@ -89,6 +96,7 @@ class Migrate {
 
     var _listData = await CSV.parse(file);
 
+<<<<<<< HEAD
     print(_listData.length);
 
     for (var i = 1; i < _listData.length; i++) {
@@ -103,6 +111,19 @@ class Migrate {
         for (int j = 5; j < doc.length - 1; j += 2) {
           Detail anotherDetail =
               Detail(name: doc[j].toString(), content: doc[j + 1].toString());
+=======
+    for (var i = 1; i <= _listData.length; i++) {
+      List<dynamic> doc = _listData[i];
+      var title = doc[1];
+      var isFavorite = doc[2] == 'false' ? false : true;
+      Detail primaryDetail = Detail(name: doc[3], content: doc[4]);
+      List<Detail> details = [];
+      print(doc.length);
+      if (doc.length > 4) {
+        for (int j = 5; j < doc.length - 1; j += 2) {
+          print(j);
+          Detail anotherDetail = Detail(name: doc[j], content: doc[j + 1]);
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
           details.add(anotherDetail);
         }
       }
@@ -113,7 +134,12 @@ class Migrate {
         primaryDetail: primaryDetail,
         details: details,
       );
+<<<<<<< HEAD
       AppDatabase.addDocument(document);
+=======
+
+      // AppDatabase.addDocument(document);
+>>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
     }
   }
 }

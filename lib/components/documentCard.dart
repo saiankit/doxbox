@@ -2,8 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:doxbox/models/document.dart';
 import 'package:doxbox/services/database.dart';
 import 'package:doxbox/utilities/assets.dart';
-import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/utilities/styles.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

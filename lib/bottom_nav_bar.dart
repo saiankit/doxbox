@@ -1,5 +1,5 @@
 import 'package:doxbox/providers/navBarProvider.dart';
-import 'package:doxbox/utilities/colors.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:doxbox/views/migrate/settings_screen.dart';
 import 'package:doxbox/views/upload/upload_screen.dart';
 

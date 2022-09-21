@@ -1,8 +1,7 @@
 import 'package:doxbox/components/documentCard.dart';
 import 'package:doxbox/services/database.dart';
 import 'package:doxbox/utilities/assets.dart';
-import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/utilities/styles.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:doxbox/views/details/details_screen.dart';
 import 'package:doxbox/views/home/empty_screen.dart';
 import 'package:flutter/material.dart';

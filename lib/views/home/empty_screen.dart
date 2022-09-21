@@ -1,4 +1,4 @@
-import 'package:doxbox/utilities/styles.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

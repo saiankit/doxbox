@@ -55,13 +55,13 @@ class ImportDataScreen extends StatelessWidget {
                       fontSize: 16.0);
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  'SAVE',
-                  style: TextStyles.t20.apply(color: Colors.white),
-                ),
                 style: ElevatedButton.styleFrom(
                   primary: Nord.orange,
                   minimumSize: Size.fromHeight(Converts.c48),
+                ),
+                child: Text(
+                  'SAVE',
+                  style: TextStyles.t20.apply(color: Colors.white),
                 ),
               ),
             ),

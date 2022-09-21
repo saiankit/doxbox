@@ -1,5 +1,5 @@
 import 'package:doxbox/config/size_config.dart';
-import 'package:doxbox/utilities/colors.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:flutter/material.dart';
 
 class Converts {

@@ -1,7 +1,6 @@
 import 'package:doxbox/providers/fieldsProvider.dart';
 import 'package:doxbox/providers/navBarProvider.dart';
-import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/utilities/styles.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

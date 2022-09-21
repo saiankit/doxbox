@@ -5,8 +5,7 @@ import 'package:doxbox/config/multi_provider.dart';
 import 'package:doxbox/config/size_config.dart';
 import 'package:doxbox/models/detail.dart';
 import 'package:doxbox/models/document.dart';
-import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/utilities/styles.dart';
+import 'package:doxbox/utilities/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -51,23 +50,20 @@ class _MyAppState extends State<MyApp> {
         ),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError)
+            if (snapshot.hasError) {
               return const Center(
                 child: Text('Something Went Wrong'),
               );
-            else
+            } else {
               return const BottomNavBarScreen();
+            }
           }
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: Center(
-                child: Text(
-                  'Loading...',
-                  style: TextStyles.t32.apply(color: Colors.white),
-                ),
-              ),
+              body: const Center(
+                  child: CircularProgressIndicator(color: Colors.white)),
               backgroundColor: Nord.bg,
             ),
           );

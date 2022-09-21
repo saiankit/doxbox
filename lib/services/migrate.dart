@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:doxbox/models/detail.dart';
 import 'package:doxbox/models/document.dart';
 import 'package:doxbox/services/csv.dart';
+import 'package:doxbox/services/database.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -68,7 +69,10 @@ class Migrate {
 
   static void generateCSV() async {
     var fileName = DateTime.now().day.toString() +
+        DateTime.now().month.toString() +
+        DateTime.now().year.toString() +
         DateTime.now().hour.toString() +
+        DateTime.now().minute.toString() +
         DateTime.now().second.toString();
 
     var res = await exportFile(CSV.generate(), "$fileName.csv");
@@ -85,17 +89,20 @@ class Migrate {
 
     var _listData = await CSV.parse(file);
 
-    for (var i = 1; i <= _listData.length; i++) {
+    print(_listData.length);
+
+    for (var i = 1; i < _listData.length; i++) {
       List<dynamic> doc = _listData[i];
       var title = doc[1];
-      var isFavorite = doc[2] == 'false' ? false : true;
-      Detail primaryDetail = Detail(name: doc[3], content: doc[4]);
+      var isFavorite = (doc[2] == 'FALSE' || doc[2] == 'false') ? false : true;
+
+      Detail primaryDetail =
+          Detail(name: doc[3].toString(), content: doc[4].toString());
       List<Detail> details = [];
-      print(doc.length);
       if (doc.length > 4) {
         for (int j = 5; j < doc.length - 1; j += 2) {
-          print(j);
-          Detail anotherDetail = Detail(name: doc[j], content: doc[j + 1]);
+          Detail anotherDetail =
+              Detail(name: doc[j].toString(), content: doc[j + 1].toString());
           details.add(anotherDetail);
         }
       }
@@ -106,8 +113,7 @@ class Migrate {
         primaryDetail: primaryDetail,
         details: details,
       );
-
-      // AppDatabase.addDocument(document);
+      AppDatabase.addDocument(document);
     }
   }
 }

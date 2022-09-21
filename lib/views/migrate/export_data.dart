@@ -55,24 +55,14 @@ class ExportDataScreen extends StatelessWidget {
                       fontSize: 16.0);
                   Navigator.of(context).pop();
                 },
-<<<<<<< HEAD
                 style: ElevatedButton.styleFrom(
                   primary: Nord.orange,
                   minimumSize: Size.fromHeight(Converts.c48),
                 ),
-=======
->>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
                 child: Text(
                   'SAVE',
                   style: TextStyles.t20.apply(color: Colors.white),
                 ),
-<<<<<<< HEAD
-=======
-                style: ElevatedButton.styleFrom(
-                  primary: Nord.orange,
-                  minimumSize: Size.fromHeight(Converts.c48),
-                ),
->>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
               ),
             ),
           ],

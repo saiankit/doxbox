@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/utilities/styles.dart';
->>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,8 +24,6 @@ class FieldsProvider extends ChangeNotifier {
 
     controllers.add([nameDetailController, contentDetailController]);
     detailFields.add(detailField);
-    print('hi');
-    print(detailFields.length);
     notifyListeners();
   }
 
@@ -44,7 +37,7 @@ class FieldsProvider extends ChangeNotifier {
       details: [],
       isFavorite: false,
     );
-    for (int i = 0; i < detailFields.length - 3; ++i) {
+    for (int i = 0; i < detailFields.length; ++i) {
       newDocument.details.add(Detail(
           name: controllers[i][0].text, content: controllers[i][1].text));
     }

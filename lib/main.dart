@@ -5,12 +5,7 @@ import 'package:doxbox/config/multi_provider.dart';
 import 'package:doxbox/config/size_config.dart';
 import 'package:doxbox/models/detail.dart';
 import 'package:doxbox/models/document.dart';
-<<<<<<< HEAD
 import 'package:doxbox/utilities/theme.dart';
-=======
-import 'package:doxbox/utilities/colors.dart';
-import 'package:doxbox/utilities/styles.dart';
->>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -55,7 +50,6 @@ class _MyAppState extends State<MyApp> {
         ),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-<<<<<<< HEAD
             if (snapshot.hasError) {
               return const Center(
                 child: Text('Something Went Wrong'),
@@ -63,14 +57,6 @@ class _MyAppState extends State<MyApp> {
             } else {
               return const BottomNavBarScreen();
             }
-=======
-            if (snapshot.hasError)
-              return const Center(
-                child: Text('Something Went Wrong'),
-              );
-            else
-              return const BottomNavBarScreen();
->>>>>>> 0c18ed551f9c8acdbc44ebf282f4139dcad2ef46
           }
 
           return MaterialApp(

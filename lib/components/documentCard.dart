@@ -32,6 +32,7 @@ class DocumentCard extends StatelessWidget {
                 children: [
                   Text(
                     document.title,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyles.t12.apply(
                       color: Colors.white,
                     ),
@@ -49,10 +50,14 @@ class DocumentCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    document.primaryDetail.content,
-                    style: TextStyles.t20.apply(
-                      color: Colors.white,
+                  Expanded(
+                    child: Text(
+                      document.primaryDetail.content,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyles.t20.apply(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   IconButton(

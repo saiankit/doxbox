@@ -79,11 +79,25 @@ class DetailWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(detail.name, style: TextStyles.t12),
+          Expanded(
+            child: Text(
+              detail.name,
+              maxLines: 5,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyles.t12,
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(detail.content, style: TextStyles.t20),
+              Expanded(
+                child: Text(
+                  detail.content,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyles.t20,
+                ),
+              ),
               IconButton(
                 onPressed: () {
                   FlutterClipboard.copy(detail.content).then(

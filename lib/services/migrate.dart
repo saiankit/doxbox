@@ -33,12 +33,12 @@ class Migrate {
           for (int x = 1; x < paths.length; x++) {
             String folder = paths[x];
             if (folder != "Android") {
-              newPath += "/" + folder;
+              newPath += "/$folder";
             } else {
               break;
             }
           }
-          newPath = newPath + "/Documents";
+          newPath = "$newPath/Documents";
           directory = Directory(newPath);
         } else {
           return false;
@@ -55,8 +55,7 @@ class Migrate {
         await directory.create(recursive: true);
       }
       if (await directory.exists()) {
-        print(fileName);
-        File exportFile = File(directory.path + "/$fileName");
+        File exportFile = File("${directory.path}/$fileName");
         await exportFile.writeAsString(csvData);
 
         return true;
@@ -88,8 +87,6 @@ class Migrate {
     PlatformFile file = await result!.files.first;
 
     var _listData = await CSV.parse(file);
-
-    print(_listData.length);
 
     for (var i = 1; i < _listData.length; i++) {
       List<dynamic> doc = _listData[i];

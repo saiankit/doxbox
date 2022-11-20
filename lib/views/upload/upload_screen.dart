@@ -29,11 +29,15 @@ class UploadScreen extends StatelessWidget {
                         builder: (context, navBarViewModel, _) {
                       return ElevatedButton(
                         onPressed: () {
-                          fieldsProvider.addDocument();
-                          navBarViewModel.changeNavBarSelectedIndex(0);
+                          if (fieldsProvider.validate()) {
+                            fieldsProvider.addDocument();
+                            navBarViewModel.changeNavBarSelectedIndex(0);
+                          }
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: Nord.orange,
+                          primary: fieldsProvider.validate()
+                              ? Nord.orange
+                              : Nord.nord2,
                           // minimumSize: Size.fromHeight(Converts.c48),
                         ),
                         child: Text(

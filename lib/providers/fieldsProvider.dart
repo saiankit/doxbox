@@ -48,4 +48,13 @@ class FieldsProvider extends ChangeNotifier {
     primaryContentDetailController.clear();
     documentDetailController.clear();
   }
+
+  bool validate() {
+    if (documentDetailController.text != '' ||
+        primaryContentDetailController.text != '' ||
+        primaryNameDetailController.text != '') {
+      return false;
+    }
+    return true;
+  }
 }
